@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TriviaApp.Views.Questions">
+    <ContentPage.Content>
+        <AbsoluteLayout>
+
+            <CollectionView x:Name="collectionName" 
+                            ItemsSource="{Binding QuestionList}" SelectionMode="Single"
+                        SelectionChangedCommand="{Binding SelctionChanged}"
+                        SelectionChangedCommandParameter="{Binding Source={x:Reference collectionName}, Path=SelectedItem}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.LeftItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete"
+                                           IconImageSource="delete.png"
+                                           BackgroundColor="Red"
+                                           Command="{Binding Source={x:Reference collectionName}, Path=BindingContext.DeleteCommand}"
+                                           CommandParameter="{Binding}" />
+                                </SwipeItems>
+                            </SwipeView.LeftItems>
+                            <Grid Padding="10" HorizontalOptions="FillAndExpand">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0"
+                                   Text="Question:"/>
+                                <Label Grid.Column="1" Grid.Row="0"
+                                   Text="{Binding QText}" />
+                                <Label Grid.Column="0" Grid.Row="1"
+                                   Text="Correct Answer" />
+                                <Label Text="{Binding CorrectAnswer}" Grid.Column="1" Grid.Row="1"/>
+                            </Grid>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <ImageButton Source="Edit.jpg"
+            BackgroundColor="Transparent"
+            AbsoluteLayout.LayoutFlags="PositionProportional" IsVisible="{Binding Able}"
+            AbsoluteLayout.LayoutBounds=".95,.95,80,80" Clicked="ImageButton_Clicked"/>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

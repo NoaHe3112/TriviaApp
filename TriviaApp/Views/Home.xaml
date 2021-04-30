@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TriviaApp.Views.Home">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*">
+
+                    </ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Text="Play" x:Name="Play" Clicked="Play_Clicked" Grid.Column="0" Grid.Row="0" ></Button>
+                <Button Text="Sign Up" x:Name="SignUp" Clicked="SignUp_Clicked"  Grid.Column="0" Grid.Row="1"></Button>
+                <Button Text="Log In" x:Name="LogIn" Clicked="LogIn_Clicked"  Grid.Column="0" Grid.Row="2"></Button>
+
+
+
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

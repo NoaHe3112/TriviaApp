@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TriviaApp.Views.ShowQuestion">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Question:"></Label>
+            <Entry Text="{Binding QText}" Grid.Column="0" Grid.Row="0" />
+            <Label Text="Correct Answer:"/>
+            <Entry Text="{Binding QAnswer}" Grid.Column="1" Grid.Row="0"/>
+            <Label Text="Incorrecct Answers:"/>
+            <Entry Text="{Binding QNotAnswers[0]}"  />
+            <Entry Text="{Binding QNotAnswers[1]}" />
+            <Entry Text="{Binding QNotAnswers[2]}" />
+
+           
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

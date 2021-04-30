@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TriviaApp.Views.AddQuestion">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Please enter your question:"></Label>
+            <Entry x:Name="mail" BindingContext="{Binding Question}"/>
+            <Label Text="Please enter the correct answer:"/>
+            <Entry x:Name="nickname" BindingContext="{Binding CorrectAnswer}"/>
+            <Label Text="Please enter 3 incorrect answers:"/>
+            <Entry x:Name="Option1" BindingContext="{Binding Option1}"/>
+            <Entry x:Name="Option2" BindingContext="{Binding Option2}"/>
+            <Entry x:Name="Option3" BindingContext="{Binding Option3}"/>
+
+            <Label Text="{Binding Label}"></Label>
+            <Button Text="Add Question" Command="{Binding Add}"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
