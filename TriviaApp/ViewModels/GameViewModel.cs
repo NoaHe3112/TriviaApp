@@ -49,6 +49,9 @@ namespace TriviaApp.ViewModels
         async void optionClicked(Object o)
         {
             if(o is Button)
+            {
+
+            }
             if(this.Equals(Question.CorrectAnswer))
             {
                 this.BackgroundColor = new Color(52, 212, 100); 

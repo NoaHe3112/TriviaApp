@@ -15,7 +15,7 @@
 
                     </ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Text="Play" x:Name="Play" Clicked="Play_Clicked" Grid.Column="0" Grid.Row="0" ></Button>
+                <Button Text="Play" x:Name="Play" Command="{Binding Play}" Grid.Column="0" Grid.Row="0" ></Button>
                 <Button Text="Sign Up" x:Name="SignUp" Clicked="SignUp_Clicked"  Grid.Column="0" Grid.Row="1"></Button>
                 <Button Text="Log In" x:Name="LogIn" Clicked="LogIn_Clicked"  Grid.Column="0" Grid.Row="2"></Button>
 

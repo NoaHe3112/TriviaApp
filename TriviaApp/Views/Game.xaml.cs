@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using TriviaApp.ViewModels;
 
 namespace TriviaApp.Views
 {
@@ -14,6 +15,7 @@ namespace TriviaApp.Views
     {
         public Game()
         {
+            this.BindingContext = new GameViewModel(); 
             InitializeComponent();
         }
 
