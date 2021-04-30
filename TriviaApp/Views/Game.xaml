@@ -12,19 +12,18 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label x:Name="Question" Text="{Binding Question}" FontSize="Header" HorizontalOptions="CenterAndExpand"
+                <Label x:Name="Question" Text="{Binding QuestionText}" FontSize="Large"  HorizontalOptions="CenterAndExpand" 
                        Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0" />
                 <Button x:Name="Option1" Text="{Binding Options[0]}" Command="{Binding OptionClicked}" Grid.Column="0"
-                        Grid.Row="1" BackgroundColor="{Binding Color1}"/>
+                        Grid.Row="1" BackgroundColor="{Binding Color1}" FontSize="Medium"/>
                 <Button x:Name="Option2" Text="{Binding Options[1]}" Command="{Binding OptionClicked}" Grid.Column="1"
-                        Grid.Row="1" BackgroundColor="{Binding Color2}"/>
+                        Grid.Row="1" BackgroundColor="{Binding Color2}" FontSize="Medium"/>
                 <Button x:Name="Option3" Text="{Binding Options[2]}" Command="{Binding OptionClicked}" Grid.Column="0"
-                        Grid.Row="2" BackgroundColor="{Binding Color3}"/>
+                        Grid.Row="2" BackgroundColor="{Binding Color3}" FontSize="Medium"/>
                 <Button x:Name="Option4" Text="{Binding Options[3]}" Command="{Binding OptionClicked}" Grid.Column="1"
-                        Grid.Row="2" BackgroundColor="{Binding Color4}"/>
+                        Grid.Row="2" BackgroundColor="{Binding Color4}" FontSize="Medium"/>
 
             </Grid>
         </StackLayout>

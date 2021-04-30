@@ -34,13 +34,13 @@ namespace TriviaApp.ViewModels
             }
         }
         public string[] Options { get; set; }
-   
+        public string QuestionText { get; set; }
+
 
 
 
         public GameViewModel()
         {
-           
  
         }
 
@@ -55,6 +55,7 @@ namespace TriviaApp.ViewModels
             if(this.Equals(Question.CorrectAnswer))
             {
                 this.BackgroundColor = new Color(52, 212, 100); 
+
             }
             else
             {

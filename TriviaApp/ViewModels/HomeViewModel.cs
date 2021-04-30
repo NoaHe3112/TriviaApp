@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Windows.Input;
 using TriviaApp.Services;
 using TriviaApp.Models;
+using TriviaApp.Views;
 
 namespace TriviaApp.ViewModels
 {
@@ -70,8 +71,12 @@ namespace TriviaApp.ViewModels
             {
                 Options = options,
                 Question = a,
-
+                QuestionText = a.QText,
             };
+            Page p = new Game(); 
+            p.BindingContext = game;
+            if (NavigateToPageEvent != null)
+                NavigateToPageEvent(p);
 
         }
     }

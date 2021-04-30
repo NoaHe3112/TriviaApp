@@ -15,16 +15,15 @@ namespace TriviaApp.Views
     {
         public Home()
         {
-            this.BindingContext = new HomeViewModel(); 
-            InitializeComponent();
-
+                HomeViewModel context = new HomeViewModel();
+                //Register to the event so the view model will be able to navigate to the monkeypage
+                context.NavigateToPageEvent += NavigateToAsync;
+                this.BindingContext = context;
+                InitializeComponent();
         }
-
-
-        private async void Play_Clicked(object sender, EventArgs e)
+        public async void NavigateToAsync(Page p)
         {
-            Page p = new Game();
-            await Navigation.PushAsync(p);
+                await Navigation.PushAsync(p);
         }
 
         private async void SignUp_Clicked(object sender, EventArgs e)
@@ -38,10 +37,7 @@ namespace TriviaApp.Views
             Page p = new LogIn();
             await Navigation.PushAsync(p);
         }
-        public async void NavigateToAsync(Page p)
-        {
-            await Navigation.PushAsync(p);
-        }
+    
 
     }
 }

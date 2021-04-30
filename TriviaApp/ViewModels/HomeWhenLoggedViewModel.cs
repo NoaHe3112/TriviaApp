@@ -32,10 +32,18 @@ namespace TriviaApp.ViewModels
             GameViewModel game = new GameViewModel
             {
                 Options = options,
-                Question = a, 
-                
+                Question = a,
+                QuestionText = a.QText,
+
             };
+            Page p = new Game();
+            p.BindingContext = game;
+            if (NavigateToPageEvent != null)
+                NavigateToPageEvent(p);
+
 
         }
+        public Action<Page> NavigateToPageEvent;
+
     }
 }
