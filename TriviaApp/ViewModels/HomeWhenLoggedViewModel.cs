@@ -11,6 +11,14 @@ namespace TriviaApp.ViewModels
 {
     class HomeWhenLoggedViewModel
     {
+        public ICommand Edit => new Command(edit); 
+
+        async void edit()
+        {
+            Page p = new Questions();
+            if (NavigateToPageEvent != null)
+                NavigateToPageEvent(p);
+        }
         public ICommand Play => new Command(play);
 
         async void play()
@@ -34,6 +42,7 @@ namespace TriviaApp.ViewModels
                 Options = options,
                 Question = a,
                 QuestionText = a.QText,
+                Score = 0,
 
             };
             Page p = new Game();

@@ -68,7 +68,7 @@ namespace TriviaApp.ViewModels
         {
             TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
             User u = await proxy.LoginAsync(Email, Password);
-            if(u != null)
+            if(u.Email != null)
             {
                 Page p = new HomeWhenLogged();
                 Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
@@ -79,7 +79,7 @@ namespace TriviaApp.ViewModels
             }
             else
             {
-                Label = "The email or nickname is already exsits. Please try another one";
+                Label = "Email or password is incorrect. Please try again";
             }
         }
         public Action<Page> NavigateToPageEvent;

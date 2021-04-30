@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 using TriviaApp.ViewModels;
 
 
+
 namespace TriviaApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]

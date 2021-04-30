@@ -85,9 +85,9 @@ namespace TriviaApp.ViewModels
         {
             User u = new User
             {
-                Email = email,
-                Password = pass,
-                NickName = nickname,
+                Email = Email,
+                Password = Password,
+                NickName = NickName,
 
             };
             TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
@@ -95,8 +95,8 @@ namespace TriviaApp.ViewModels
             if(b)
             {
                 Label = "successfully registered! please wait 5 seconds";
-                //wait 5 seconds - to learn how
-                await Task.Delay(50000);
+                //wait 10 seconds - to learn how
+                await Task.Delay(10000);
                 User us = await proxy.LoginAsync(Email, Password);
                 App.Current.Properties["UserDetail"] = JsonSerializer.Serialize(u);
                 Page p = new HomeWhenLogged();
@@ -107,10 +107,7 @@ namespace TriviaApp.ViewModels
             else
             {
                 Label = "The email or nickname is already exsits. Please try another one";
-                Page p = new Home();
 
-                if (NavigateToPageEvent != null)
-                    NavigateToPageEvent(p);
 
             }
             

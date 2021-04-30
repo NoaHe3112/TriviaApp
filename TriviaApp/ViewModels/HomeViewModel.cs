@@ -72,6 +72,7 @@ namespace TriviaApp.ViewModels
                 Options = options,
                 Question = a,
                 QuestionText = a.QText,
+                Score = 0,
             };
             Page p = new Game(); 
             p.BindingContext = game;
