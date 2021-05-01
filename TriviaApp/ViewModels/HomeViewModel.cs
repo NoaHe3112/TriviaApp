@@ -7,6 +7,9 @@ using System.Windows.Input;
 using TriviaApp.Services;
 using TriviaApp.Models;
 using TriviaApp.Views;
+using TriviaApp.ViewModels;
+using System.Text.Json;
+
 
 namespace TriviaApp.ViewModels
 {
@@ -20,6 +23,8 @@ namespace TriviaApp.ViewModels
         }
         #endregion
         public Action<Page> NavigateToPageEvent;
+
+        //Properties
         private bool sign;
         public bool Sign
         {
@@ -48,6 +53,22 @@ namespace TriviaApp.ViewModels
             }
         }
 
+        //Constructor 
+        public HomeViewModel()
+        {
+            JsonSerializerOptions options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            User u = JsonSerializer.Deserialize<User>(App.Current.Properties["UserDetail"].ToString(), options);
+            if (u != null)
+            {
+                Page p = new HomeWhenLogged(); 
+                if (NavigateToPageEvent != null)
+                    NavigateToPageEvent(p);
+            }
+        }
+
         //Commands
         public ICommand Play => new Command(play);
 
@@ -67,15 +88,12 @@ namespace TriviaApp.ViewModels
                     optionNum++;
                 }
             }
-            GameViewModel game = new GameViewModel
-            {
-                Options = options,
-                Question = a,
-                QuestionText = a.QText,
-                Score = 0,
-            };
             Page p = new Game(); 
-            p.BindingContext = game;
+            GameViewModel game = (GameViewModel)p.BindingContext;
+            game.Options = options;
+            game.Question = a;
+            game.QuestionText = a.QText;
+            game.Score = 0;
             if (NavigateToPageEvent != null)
                 NavigateToPageEvent(p);
 

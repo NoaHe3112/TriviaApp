@@ -13,7 +13,7 @@ namespace TriviaApp.ViewModels
     {
         public ICommand Edit => new Command(edit); 
 
-        async void edit()
+        void edit()
         {
             Page p = new Questions();
             if (NavigateToPageEvent != null)
@@ -37,16 +37,14 @@ namespace TriviaApp.ViewModels
                     optionNum++;
                 }
             }
-            GameViewModel game = new GameViewModel
-            {
-                Options = options,
-                Question = a,
-                QuestionText = a.QText,
-                Score = 0,
-
-            };
+            
+            
             Page p = new Game();
-            p.BindingContext = game;
+            GameViewModel game = (GameViewModel)p.BindingContext;
+            game.Options = options;
+            game.Question = a;
+            game.QuestionText = a.QText;
+            game.Score = 0; 
             if (NavigateToPageEvent != null)
                 NavigateToPageEvent(p);
 

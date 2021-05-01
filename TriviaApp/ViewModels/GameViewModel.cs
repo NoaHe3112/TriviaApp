@@ -19,8 +19,19 @@ namespace TriviaApp.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
-
-        public AmericanQuestion Question { get; set; }
+        private AmericanQuestion a;
+        public AmericanQuestion Question
+        {
+            get
+            {
+                return this.a;
+            }
+            set
+            {
+                this.a = value;
+                OnPropertyChanged("Question");
+            }
+        }
         private Color c;
         public Color BackgroundColor
         {
@@ -48,34 +59,71 @@ namespace TriviaApp.ViewModels
             }
         }
 
-        public string[] Options { get; set; }
-        public string QuestionText { get; set; }
+        private string q; 
+        public string QuestionText
+        {
+            get
+            {
+                return this.q; 
+            }
+            set
+            {
+                this.q = value;
+                OnPropertyChanged("QuestionText");
 
+            }
+        }
+        private string[] arr; 
+        public string[] Options
+        {
+            get
+            {
+                return this.arr;
+            }
+            set
+            {
+                this.arr = value;
+                OnPropertyChanged("Options");
 
+            }
+        }
 
 
         public GameViewModel()
         {
- 
+           
+
+            
+
         }
 
         public ICommand OptionClicked => new Command<Object>(optionClicked);
 
         async void optionClicked(Object o)
         {
+            if(o is string)
+            {
+                if(((string)o).Equals(Question.CorrectAnswer)) {
+                    Score++;
+                    //this.BackgroundColor = new Color(52, 212, 100);
+                }
+
+            }
             
-            if(this.Equals(Question.CorrectAnswer))
-            {
-                this.BackgroundColor = new Color(52, 212, 100);
-                Score++; 
-            }
-            else
-            {
-                
-            }
+        
             if (Score >= 3)
             {
-                Page p = new AddQuestion();
+                bool isLoggedIn = App.Current.Properties.ContainsKey("IsLoggedIn") ? Convert.ToBoolean(App.Current.Properties["IsLoggedIn"]) : false;
+                Page p;
+                if (!isLoggedIn)
+                {
+                    p = new LogIn(); 
+                }
+                else
+                {
+                    p = new AddQuestion();
+                }
+                
                 if (NavigateToPageEvent != null)
                     NavigateToPageEvent(p);
             }
@@ -95,15 +143,13 @@ namespace TriviaApp.ViewModels
                         optionNum++;
                     }
                 }
-                GameViewModel game = new GameViewModel
-                {
-                    Options = options,
-                    Question = a,
-                    QuestionText = a.QText,
-                    Score = 0,
-                };
+               
                 Page p = new Game();
-                p.BindingContext = game;
+                GameViewModel game = (GameViewModel)p.BindingContext;
+                game.Options = options;
+                game.Question = a;
+                game.QuestionText = a.QText;
+                game.Score = this.Score;
                 if (NavigateToPageEvent != null)
                     NavigateToPageEvent(p);
 

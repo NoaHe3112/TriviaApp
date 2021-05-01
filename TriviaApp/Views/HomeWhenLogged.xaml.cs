@@ -28,7 +28,8 @@ namespace TriviaApp.Views
         private void LogOut_Clicked(object sender, EventArgs e)
         {
             Application.Current.Properties["IsLoggedIn"] = Boolean.FalseString;
-            App.Current.Properties["UserDetail"] = null; 
+            App.Current.Properties["UserDetail"] = null;
+            App.Current.Properties["User"] = null;
             Page p = new Home();
             Navigation.PushAsync(p);
         }

@@ -5,11 +5,11 @@
     <ContentPage.Content >
         <StackLayout>
             <Label Text="Please enter your email:"></Label>
-            <Entry x:Name="mail" BindingContext="{Binding Email}"/>
+            <Entry x:Name="mail" Text="{Binding Email}"/>
             <Label Text="Please enter a nickname"/>
-            <Entry x:Name="nickname" BindingContext="{Binding NickName}"/>
+            <Entry x:Name="nickname" Text="{Binding NickName}"/>
             <Label Text="Please enter a password:"/>
-            <Entry x:Name="pass" BindingContext="{Binding Password}" IsPassword="True"/>
+            <Entry x:Name="pass" Text="{Binding Password}" IsPassword="True"/>
             <Label Text="{Binding Label}"></Label>
             <Button Text="Sign Up" Command="{Binding Register}"></Button>
 

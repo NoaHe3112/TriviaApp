@@ -73,7 +73,12 @@ namespace TriviaApp.ViewModels
                 Page p = new HomeWhenLogged();
                 Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
 
-                App.Current.Properties["UserDetail"] = u; 
+                JsonSerializerOptions options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+                App.Current.Properties["UserDetail"] = JsonSerializer.Serialize<User>(u, options);
+                App.Current.Properties["User"] = u; 
                 if (NavigateToPageEvent != null)
                     NavigateToPageEvent(p);
             }

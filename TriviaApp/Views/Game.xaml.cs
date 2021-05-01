@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using TriviaApp.ViewModels;
-
+using TriviaApp.Services;
+using TriviaApp.Models;
+using System;
 
 namespace TriviaApp.Views
 {
@@ -16,7 +18,7 @@ namespace TriviaApp.Views
         public Game()
         {
             GameViewModel context = new GameViewModel();
-            //Register to the event so the view model will be able to navigate to the monkeypage
+            //Register to the event so the view model will be able to navigate
             context.NavigateToPageEvent += NavigateToAsync;
             this.BindingContext = context;
             InitializeComponent();
