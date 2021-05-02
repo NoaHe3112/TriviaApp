@@ -88,6 +88,8 @@ namespace TriviaApp.ViewModels
 
             }
         }
+        public string[] Colors { get; set; }
+        public int CorrectAnswerIndex { get; set; }
 
 
         public GameViewModel()
@@ -98,14 +100,17 @@ namespace TriviaApp.ViewModels
             taskA.Wait();
             AmericanQuestion a = taskA.Result; 
             string[] options = new string[4];
+            string[] color = new string[4]; 
             Random r = new Random();
             int num = r.Next(0, 4);
             options[num] = a.CorrectAnswer;
+            color[num] = "#0DFC34"; 
             for (int i = 0, optionNum = 0; i < options.Length; i++)
             {
                 if (options[i] == null)
                 {
                     options[i] = a.OtherAnswers[optionNum];
+                    color[i] = "#FC0D0D";
                     optionNum++;
                 }
             }
@@ -114,19 +119,19 @@ namespace TriviaApp.ViewModels
             game.Options = options;
             game.Question = a;
             game.QuestionText = a.QText;
-
+            game.CorrectAnswerIndex = num; 
 
         }
 
         public ICommand OptionClicked => new Command<Object>(optionClicked);
 
-        async void optionClicked(Object o)
+        void optionClicked(Object o)
         {
             if(o is string)
             {
                 if(((string)o).Equals(Question.CorrectAnswer)) {
                     Score++;
-                    //this.BackgroundColor = new Color(52, 212, 100);
+                    
                 }
 
             }
