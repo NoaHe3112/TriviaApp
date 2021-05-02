@@ -105,13 +105,12 @@ namespace TriviaApp.ViewModels
 
             Counter--;
             if (Counter <= 0)
-                Able = false; 
-            AddQuestionViewModel a = new AddQuestionViewModel
-            {
-                LastPage = new Questions(), 
-            };
+                Able = false;
             Page p = new AddQuestion();
-            p.BindingContext = a;
+            AddQuestionViewModel a = (AddQuestionViewModel)p.BindingContext;
+            a.NextPage = new Questions(); 
+           
+            
             if (NavigateToPageEvent != null)
                 NavigateToPageEvent(p);
 

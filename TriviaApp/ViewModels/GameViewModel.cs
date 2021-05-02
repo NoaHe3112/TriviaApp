@@ -7,6 +7,7 @@ using TriviaApp.Models;
 using TriviaApp.Services;
 using System.ComponentModel;
 using TriviaApp.Views;
+using System.Threading.Tasks;
 
 namespace TriviaApp.ViewModels
 {
@@ -91,9 +92,29 @@ namespace TriviaApp.ViewModels
 
         public GameViewModel()
         {
-           
 
-            
+            TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
+            Task<AmericanQuestion> taskA =  proxy.GetRandomQuestion();
+            taskA.Wait();
+            AmericanQuestion a = taskA.Result; 
+            string[] options = new string[4];
+            Random r = new Random();
+            int num = r.Next(0, 4);
+            options[num] = a.CorrectAnswer;
+            for (int i = 0, optionNum = 0; i < options.Length; i++)
+            {
+                if (options[i] == null)
+                {
+                    options[i] = a.OtherAnswers[optionNum];
+                    optionNum++;
+                }
+            }
+            Page p = new Game();
+            GameViewModel game = (GameViewModel)p.BindingContext;
+            game.Options = options;
+            game.Question = a;
+            game.QuestionText = a.QText;
+
 
         }
 
@@ -117,11 +138,16 @@ namespace TriviaApp.ViewModels
                 Page p;
                 if (!isLoggedIn)
                 {
-                    p = new LogIn(); 
+                    p = new LogIn();
+                    LogInViewModel log = (LogInViewModel)p.BindingContext;
+                    log.NextPage = new AddQuestion(); 
+                    
                 }
                 else
                 {
                     p = new AddQuestion();
+                    AddQuestionViewModel add = (AddQuestionViewModel)p.BindingContext;
+                    add.NextPage = new Game(); 
                 }
                 
                 if (NavigateToPageEvent != null)
@@ -129,27 +155,27 @@ namespace TriviaApp.ViewModels
             }
             else
             {
-                TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
-                AmericanQuestion a = await proxy.GetRandomQuestion();
-                string[] options = new string[4];
-                Random r = new Random();
-                int num = r.Next(0, 4);
-                options[num] = a.CorrectAnswer;
-                for (int i = 0, optionNum = 0; i < options.Length; i++)
-                {
-                    if (options[i] == null)
-                    {
-                        options[i] = a.OtherAnswers[optionNum];
-                        optionNum++;
-                    }
-                }
+                //TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
+                //AmericanQuestion a = await proxy.GetRandomQuestion();
+                //string[] options = new string[4];
+                //Random r = new Random();
+                //int num = r.Next(0, 4);
+                //options[num] = a.CorrectAnswer;
+                //for (int i = 0, optionNum = 0; i < options.Length; i++)
+                //{
+                //    if (options[i] == null)
+                //    {
+                //        options[i] = a.OtherAnswers[optionNum];
+                //        optionNum++;
+                //    }
+                //}
                
                 Page p = new Game();
-                GameViewModel game = (GameViewModel)p.BindingContext;
-                game.Options = options;
-                game.Question = a;
-                game.QuestionText = a.QText;
-                game.Score = this.Score;
+                //GameViewModel game = (GameViewModel)p.BindingContext;
+                //game.Options = options;
+                //game.Question = a;
+                //game.QuestionText = a.QText;
+                //game.Score = this.Score;
                 if (NavigateToPageEvent != null)
                     NavigateToPageEvent(p);
 

@@ -42,4 +42,37 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\AddQuestion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\Game.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\Home.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\HomeWhenLogged.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\LogIn.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\Questions.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\ShowQuestion.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\SignUp.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
 </Project>

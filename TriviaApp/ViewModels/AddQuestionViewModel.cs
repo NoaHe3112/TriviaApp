@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 using TriviaApp.Services;
 using TriviaApp.Models;
-using System.Text.Json;
 using TriviaApp.Views;
 
 namespace TriviaApp.ViewModels
@@ -24,7 +21,6 @@ namespace TriviaApp.ViewModels
         {
             Label = ""; 
         }
-        public Page LastPage { get; set; }
         private string ques;
         public string Question
         {
@@ -111,6 +107,7 @@ namespace TriviaApp.ViewModels
 
 
         }
+        public Page NextPage { get; set; }
         public ICommand Add => new Command(add);
 
         async void add()
@@ -119,15 +116,13 @@ namespace TriviaApp.ViewModels
             arr[0] = Option1;
             arr[1] = Option2;
             arr[2] = Option3;
-            JsonSerializerOptions serializerOptions = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-            //string content = ReadAsStringAsync(App.Current.Properties["UserDetail"]); 
+
 
 
             //User u = JsonSerializer.Deserialize<User>(content, serializerOptions);
-            User u = (User)App.Current.Properties["User"];
+            //User u = (User)App.Current.Properties["User"];
+            App app = (App)App.Current;
+            User u = app.CurrentUser; 
             AmericanQuestion a = new AmericanQuestion
             {
                 CorrectAnswer = CorrectAnswer,
@@ -138,28 +133,29 @@ namespace TriviaApp.ViewModels
             };
             TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
             bool b = await proxy.PostNewQuestion(a);
+            
             u.Questions.Add(a);
             if (b)
             {
-                AmericanQuestion q = await proxy.GetRandomQuestion();
-                string[] options = new string[4];
-                Random r = new Random();
-                int num = r.Next(0, 4);
-                options[num] = q.CorrectAnswer;
-                for (int i = 0, optionNum = 0; i < options.Length; i++)
-                {
-                    if (options[i] == null)
-                    {
-                        options[i] = q.OtherAnswers[optionNum];
-                        optionNum++;
-                    }
-                }
+                //AmericanQuestion q = await proxy.GetRandomQuestion();
+                //string[] options = new string[4];
+                //Random r = new Random();
+                //int num = r.Next(0, 4);
+                //options[num] = q.CorrectAnswer;
+                //for (int i = 0, optionNum = 0; i < options.Length; i++)
+                //{
+                //    if (options[i] == null)
+                //    {
+                //        options[i] = q.OtherAnswers[optionNum];
+                //        optionNum++;
+                //    }
+                //}
                 Page p = new Game();
-                GameViewModel game = (GameViewModel)p.BindingContext;
-                game.Options = options;
-                game.Question = a;
-                game.QuestionText = a.QText;
-                game.Score = 0;
+                //GameViewModel game = (GameViewModel)p.BindingContext;
+                //game.Options = options;
+                //game.Question = a;
+                //game.QuestionText = a.QText;
+                //game.Score = 0;
                 if (NavigateToPageEvent != null)
                     NavigateToPageEvent(p);
             }

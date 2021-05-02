@@ -9,7 +9,8 @@ using TriviaApp.Models;
 using TriviaApp.Views;
 using TriviaApp.ViewModels;
 using System.Text.Json;
-
+using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace TriviaApp.ViewModels
 {
@@ -56,11 +57,24 @@ namespace TriviaApp.ViewModels
         //Constructor 
         public HomeViewModel()
         {
-            JsonSerializerOptions options = new JsonSerializerOptions
+            User u = null; 
+            try
             {
-                PropertyNameCaseInsensitive = true
-            };
-            User u = JsonSerializer.Deserialize<User>(App.Current.Properties["UserDetail"].ToString(), options);
+                Task<string> TaskEmail = SecureStorage.GetAsync("email");
+                Task<string> TaskPassword = SecureStorage.GetAsync("password");
+                TaskEmail.Wait();
+                TaskPassword.Wait();
+                string email = TaskEmail.Result; 
+                string password = TaskPassword.Result;
+                TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
+
+                Task<User> taskUser = proxy.LoginAsync(email, password);
+                taskUser.Wait();
+                u = taskUser.Result; 
+            }
+            catch
+            { }
+          
             if (u != null)
             {
                 Page p = new HomeWhenLogged(); 
@@ -74,25 +88,10 @@ namespace TriviaApp.ViewModels
 
         async void play()
         {
-            TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
-            AmericanQuestion a = await proxy.GetRandomQuestion();
-            string[] options = new string[4];
-            Random r = new Random();
-            int num = r.Next(0, 4);
-            options[num] = a.CorrectAnswer;
-            for (int i = 0, optionNum = 0; i < options.Length; i++)
-            {
-                if (options[i] == null)
-                {
-                    options[i] = a.OtherAnswers[optionNum];
-                    optionNum++;
-                }
-            }
+          
             Page p = new Game(); 
             GameViewModel game = (GameViewModel)p.BindingContext;
-            game.Options = options;
-            game.Question = a;
-            game.QuestionText = a.QText;
+          
             game.Score = 0;
             if (NavigateToPageEvent != null)
                 NavigateToPageEvent(p);

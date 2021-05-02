@@ -8,6 +8,7 @@ using TriviaApp.Services;
 using TriviaApp.Models;
 using TriviaApp.Views;
 using System.Text.Json;
+using Xamarin.Essentials;
 
 namespace TriviaApp.ViewModels
 {
@@ -61,6 +62,7 @@ namespace TriviaApp.ViewModels
                 OnPropertyChanged("Password");
             }
         }
+        public Page NextPage { get; set; } 
         public ICommand LogIn => new Command(logIn);
 
 
@@ -68,17 +70,39 @@ namespace TriviaApp.ViewModels
         {
             TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
             User u = await proxy.LoginAsync(Email, Password);
+
             if(u.Email != null)
             {
-                Page p = new HomeWhenLogged();
+                App a = (App)App.Current;
+                a.CurrentUser = u;
+                try
+                {
+                    await SecureStorage.SetAsync("email", Email);
+                    await SecureStorage.SetAsync("password", Password);
+                }
+                catch { }
+              
                 Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
 
-                JsonSerializerOptions options = new JsonSerializerOptions
+              
+                App.Current.Properties["User"] = u;
+                Page p = null; 
+                if(NextPage != null)
                 {
-                    PropertyNameCaseInsensitive = true
-                };
-                App.Current.Properties["UserDetail"] = JsonSerializer.Serialize<User>(u, options);
-                App.Current.Properties["User"] = u; 
+                    if(NextPage is AddQuestion)
+                    {
+                        AddQuestionViewModel add = (AddQuestionViewModel)NextPage.BindingContext;
+                        add.NextPage = new Game();
+                        p = NextPage;
+                    }
+                     
+                }
+                else
+                {
+                    p = new HomeWhenLogged();
+
+                }
+
                 if (NavigateToPageEvent != null)
                     NavigateToPageEvent(p);
             }
