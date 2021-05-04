@@ -28,10 +28,6 @@ namespace TriviaApp.Views
             await Navigation.PushAsync(p);
         }
 
-        private async void ImageButton_Clicked(object sender, EventArgs e)
-        {
-            Page p = new AddQuestion();
-            await Navigation.PushAsync(p); 
-        }
+       
     }
 }

@@ -4,7 +4,7 @@
              x:Class="TriviaApp.Views.HomeWhenLogged">
     <ContentPage.Content>
         <StackLayout>
-            <Button x:Name="LogOut" Text="Log Out" Clicked="LogOut_Clicked" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"></Button>
+            <Button x:Name="LogOut" Text="Log Out" Command="{Binding LogOut}" HorizontalOptions="CenterAndExpand" VerticalOptions="Start"></Button>
             <Button x:Name="Play" Text="Play"  HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" FontSize="Header" 
                     BackgroundColor="#F958F9" TextColor="White" Command="{Binding Play}"></Button>
             <Button x:Name="edit" Text="Edit Your Questions" Command="{Binding Edit}"></Button>

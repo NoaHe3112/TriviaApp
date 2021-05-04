@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using TriviaApp.ViewModels;
+using TriviaApp.Models;
+using Xamarin.Essentials;
 
 namespace TriviaApp.Views
 {
@@ -25,14 +27,6 @@ namespace TriviaApp.Views
         {
             await Navigation.PushAsync(p);
         }
-        private void LogOut_Clicked(object sender, EventArgs e)
-        {
-            Application.Current.Properties["IsLoggedIn"] = Boolean.FalseString;
-            App.Current.Properties["UserDetail"] = null;
-            App.Current.Properties["User"] = null;
-            Page p = new Home();
-            Navigation.PushAsync(p);
-        }
-        
+      
     }
 }

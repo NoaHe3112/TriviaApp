@@ -57,39 +57,49 @@ namespace TriviaApp.ViewModels
         //Constructor 
         public HomeViewModel()
         {
-            User u = null; 
-            try
-            {
-                Task<string> TaskEmail = SecureStorage.GetAsync("email");
-                Task<string> TaskPassword = SecureStorage.GetAsync("password");
-                TaskEmail.Wait();
-                TaskPassword.Wait();
-                string email = TaskEmail.Result; 
-                string password = TaskPassword.Result;
-                TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
-
-                Task<User> taskUser = proxy.LoginAsync(email, password);
-                taskUser.Wait();
-                u = taskUser.Result; 
-            }
-            catch
-            { }
+            //User u = null; 
+            //try
+            //{
+                
+            //}
+            //catch
+            //{ }
           
-            if (u != null)
-            {
-                Page p = new HomeWhenLogged(); 
-                if (NavigateToPageEvent != null)
-                    NavigateToPageEvent(p);
-            }
+            //if (u != null)
+            //{
+            //    Page p = new HomeWhenLogged(); 
+            //    if (NavigateToPageEvent != null)
+            //        NavigateToPageEvent(p);
+            //}
         }
 
         //Commands
+
+        public ICommand SignUp => new Command(signUp); 
+        void signUp()
+        {
+            Page p = new SignUp();
+            if (NavigateToPageEvent != null)
+                NavigateToPageEvent(p);
+        }
+        public ICommand LogIn => new Command(logIn); 
+        void logIn()
+        {
+            Page p = new LogIn();
+            if (NavigateToPageEvent != null)
+                NavigateToPageEvent(p);
+        }
+
+
+           
         public ICommand Play => new Command(play);
+
 
         async void play()
         {
-          
-            Page p = new Game(); 
+            TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
+            AmericanQuestion amricanQuestion = await proxy.GetRandomQuestion();
+            Page p = new Game(amricanQuestion); 
             GameViewModel game = (GameViewModel)p.BindingContext;
           
             game.Score = 0;

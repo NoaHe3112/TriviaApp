@@ -92,40 +92,47 @@ namespace TriviaApp.ViewModels
         public int CorrectAnswerIndex { get; set; }
 
 
-        public GameViewModel()
+        public GameViewModel(AmericanQuestion question)
         {
-
-            TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
-            Task<AmericanQuestion> taskA =  proxy.GetRandomQuestion();
-            taskA.Wait();
-            AmericanQuestion a = taskA.Result; 
-            string[] options = new string[4];
-            string[] color = new string[4]; 
-            Random r = new Random();
-            int num = r.Next(0, 4);
-            options[num] = a.CorrectAnswer;
-            color[num] = "#0DFC34"; 
-            for (int i = 0, optionNum = 0; i < options.Length; i++)
+            try
             {
-                if (options[i] == null)
+                //TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
+                //Task<AmericanQuestion> taskA = proxy.GetRandomQuestion();
+                //taskA.Wait();
+                AmericanQuestion a = question;
+                string[] options = new string[4];
+                string[] color = new string[4];
+                Random r = new Random();
+                int num = r.Next(0, 4);
+                options[num] = a.CorrectAnswer;
+                color[num] = "#0DFC34";
+                for (int i = 0, optionNum = 0; i < options.Length; i++)
                 {
-                    options[i] = a.OtherAnswers[optionNum];
-                    color[i] = "#FC0D0D";
-                    optionNum++;
+                    if (options[i] == null)
+                    {
+                        options[i] = a.OtherAnswers[optionNum];
+                        color[i] = "#FC0D0D";
+                        optionNum++;
+                    }
                 }
+              
+
+                Page p = new Game(question);
+                GameViewModel game = (GameViewModel)p.BindingContext;
+                game.Options = options;
+                game.Question = a;
+                game.QuestionText = a.QText;
+                game.CorrectAnswerIndex = num;
+
             }
-            Page p = new Game();
-            GameViewModel game = (GameViewModel)p.BindingContext;
-            game.Options = options;
-            game.Question = a;
-            game.QuestionText = a.QText;
-            game.CorrectAnswerIndex = num; 
+            catch (Exception e) { }
+
 
         }
 
         public ICommand OptionClicked => new Command<Object>(optionClicked);
 
-        void optionClicked(Object o)
+        async void optionClicked(Object o)
         {
             if(o is string)
             {
@@ -152,7 +159,9 @@ namespace TriviaApp.ViewModels
                 {
                     p = new AddQuestion();
                     AddQuestionViewModel add = (AddQuestionViewModel)p.BindingContext;
-                    add.NextPage = new Game(); 
+                    TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
+                    AmericanQuestion amricanQuestion = await proxy.GetRandomQuestion();
+                    add.NextPage = new Game(amricanQuestion); 
                 }
                 
                 if (NavigateToPageEvent != null)
@@ -174,8 +183,9 @@ namespace TriviaApp.ViewModels
                 //        optionNum++;
                 //    }
                 //}
-               
-                Page p = new Game();
+                TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
+                AmericanQuestion amricanQuestion = await proxy.GetRandomQuestion();
+                Page p = new Game(amricanQuestion);
                 //GameViewModel game = (GameViewModel)p.BindingContext;
                 //game.Options = options;
                 //game.Question = a;

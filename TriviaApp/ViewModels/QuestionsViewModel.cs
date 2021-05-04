@@ -115,8 +115,9 @@ namespace TriviaApp.ViewModels
                 NavigateToPageEvent(p);
 
         }
-        #endregion
+        
 
+        #endregion
 
         #region Events
         //Events

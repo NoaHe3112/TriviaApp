@@ -15,16 +15,18 @@ namespace TriviaApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Game : ContentPage
     {
-        public Game()
+        public Game(AmericanQuestion a)
         {
-            GameViewModel context = new GameViewModel();
+            GameViewModel context = new GameViewModel(a);
             //Register to the event so the view model will be able to navigate
             context.NavigateToPageEvent += NavigateToAsync;
             this.BindingContext = context;
             InitializeComponent();
         }
+       
         public async void NavigateToAsync(Page p)
         {
+            
             await Navigation.PushAsync(p);
 
         }

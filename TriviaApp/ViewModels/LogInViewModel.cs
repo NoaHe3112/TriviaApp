@@ -85,14 +85,14 @@ namespace TriviaApp.ViewModels
                 Application.Current.Properties["IsLoggedIn"] = Boolean.TrueString;
 
               
-                App.Current.Properties["User"] = u;
                 Page p = null; 
                 if(NextPage != null)
                 {
                     if(NextPage is AddQuestion)
                     {
                         AddQuestionViewModel add = (AddQuestionViewModel)NextPage.BindingContext;
-                        add.NextPage = new Game();
+                        AmericanQuestion amricanQuestion = await proxy.GetRandomQuestion();
+                        add.NextPage = new Game(amricanQuestion);
                         p = NextPage;
                     }
                      

@@ -26,17 +26,7 @@ namespace TriviaApp.Views
                 await Navigation.PushAsync(p);
         }
 
-        private async void SignUp_Clicked(object sender, EventArgs e)
-        {
-            Page p = new SignUp();
-            await Navigation.PushAsync(p);
-        }
-
-        private async void LogIn_Clicked(object sender, EventArgs e)
-        {
-            Page p = new LogIn();
-            await Navigation.PushAsync(p);
-        }
+      
     
 
     }

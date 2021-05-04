@@ -6,6 +6,7 @@ using Xamarin.Forms;
 using TriviaApp.Services;
 using TriviaApp.Models;
 using TriviaApp.Views;
+using Xamarin.Essentials;
 
 namespace TriviaApp.ViewModels
 {
@@ -18,6 +19,19 @@ namespace TriviaApp.ViewModels
             Page p = new Questions();
             if (NavigateToPageEvent != null)
                 NavigateToPageEvent(p);
+        }
+        public ICommand LogOut => new Command(logOut); 
+
+        void logOut()
+        {
+            Application.Current.Properties["IsLoggedIn"] = Boolean.FalseString;
+            App app = (App)App.Current;
+            app.CurrentUser = null;
+            SecureStorage.RemoveAll();
+            Page p = new Home();
+            if (NavigateToPageEvent != null)
+                NavigateToPageEvent(p);
+
         }
         public ICommand Play => new Command(play);
 
@@ -37,9 +51,10 @@ namespace TriviaApp.ViewModels
             //        optionNum++;
             //    }
             //}
-            
-            
-            Page p = new Game();
+
+            TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
+            AmericanQuestion amricanQuestion = await proxy.GetRandomQuestion();
+            Page p = new Game(amricanQuestion);
             //GameViewModel game = (GameViewModel)p.BindingContext;
             //game.Options = options;
             //game.Question = a;

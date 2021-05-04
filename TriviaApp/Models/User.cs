@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TriviaApp.Models
 {
-    class User
+    public class User
     {
         public string Email { get; set; }
         public string NickName { get; set; }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TriviaApp.Models
 {
-    class AmericanQuestion
+    public class AmericanQuestion
     {
         public string QText { get; set; }
         public string CorrectAnswer { get; set; }
