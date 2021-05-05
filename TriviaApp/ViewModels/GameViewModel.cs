@@ -92,7 +92,7 @@ namespace TriviaApp.ViewModels
         public int CorrectAnswerIndex { get; set; }
 
 
-        public GameViewModel(AmericanQuestion question)
+        public GameViewModel(AmericanQuestion question, int score)
         {
             try
             {
@@ -117,12 +117,11 @@ namespace TriviaApp.ViewModels
                 }
               
 
-                Page p = new Game(question);
-                GameViewModel game = (GameViewModel)p.BindingContext;
-                game.Options = options;
-                game.Question = a;
-                game.QuestionText = a.QText;
-                game.CorrectAnswerIndex = num;
+                this.Options = options;
+                this.Question = a;
+                this.QuestionText = a.QText;
+                this.CorrectAnswerIndex = num;
+                this.Score = score; 
 
             }
             catch (Exception e) { }
@@ -161,7 +160,7 @@ namespace TriviaApp.ViewModels
                     AddQuestionViewModel add = (AddQuestionViewModel)p.BindingContext;
                     TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
                     AmericanQuestion amricanQuestion = await proxy.GetRandomQuestion();
-                    add.NextPage = new Game(amricanQuestion); 
+                    add.NextPage = new Game(amricanQuestion, 0); 
                 }
                 
                 if (NavigateToPageEvent != null)
@@ -185,7 +184,7 @@ namespace TriviaApp.ViewModels
                 //}
                 TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
                 AmericanQuestion amricanQuestion = await proxy.GetRandomQuestion();
-                Page p = new Game(amricanQuestion);
+                Page p = new Game(amricanQuestion, Score);
                 //GameViewModel game = (GameViewModel)p.BindingContext;
                 //game.Options = options;
                 //game.Question = a;

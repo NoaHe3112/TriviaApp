@@ -71,7 +71,7 @@ namespace TriviaApp.ViewModels
             TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
             User u = await proxy.LoginAsync(Email, Password);
 
-            if(u.Email != null)
+            if(u != null)
             {
                 App a = (App)App.Current;
                 a.CurrentUser = u;
@@ -92,7 +92,7 @@ namespace TriviaApp.ViewModels
                     {
                         AddQuestionViewModel add = (AddQuestionViewModel)NextPage.BindingContext;
                         AmericanQuestion amricanQuestion = await proxy.GetRandomQuestion();
-                        add.NextPage = new Game(amricanQuestion);
+                        add.NextPage = new Game(amricanQuestion, 0);
                         p = NextPage;
                     }
                      

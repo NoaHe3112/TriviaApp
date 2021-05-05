@@ -54,7 +54,7 @@ namespace TriviaApp.ViewModels
 
             TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
             AmericanQuestion amricanQuestion = await proxy.GetRandomQuestion();
-            Page p = new Game(amricanQuestion);
+            Page p = new Game(amricanQuestion, 0);
             //GameViewModel game = (GameViewModel)p.BindingContext;
             //game.Options = options;
             //game.Question = a;

@@ -151,7 +151,7 @@ namespace TriviaApp.ViewModels
                 //    }
                 //}
                 AmericanQuestion question = await proxy.GetRandomQuestion();
-                Page p = new Game(question);
+                Page p = new Game(question,0);
                 //GameViewModel game = (GameViewModel)p.BindingContext;
                 //game.Options = options;
                 //game.Question = a;
