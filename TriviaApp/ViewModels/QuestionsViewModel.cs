@@ -114,8 +114,8 @@ namespace TriviaApp.ViewModels
         }
 
         //The add button will be displayed only if the counter is bigger than 0
-        public ICommand Add => new Command(add);
-        void add()
+        public ICommand Add => new Command(AddQ);
+        void AddQ()
         {
 
             Counter--;

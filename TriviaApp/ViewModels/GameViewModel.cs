@@ -126,9 +126,9 @@ namespace TriviaApp.ViewModels
 
         }
 
-        public ICommand OptionClicked => new Command<Object>(optionClicked);
+        public ICommand OptionClicked => new Command<Object>(OptionClick);
 
-        async void optionClicked(Object o)
+        async void OptionClick(Object o)
         {
             if(o is string)
             {
@@ -165,28 +165,10 @@ namespace TriviaApp.ViewModels
             }
             else
             {
-                //TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
-                //AmericanQuestion a = await proxy.GetRandomQuestion();
-                //string[] options = new string[4];
-                //Random r = new Random();
-                //int num = r.Next(0, 4);
-                //options[num] = a.CorrectAnswer;
-                //for (int i = 0, optionNum = 0; i < options.Length; i++)
-                //{
-                //    if (options[i] == null)
-                //    {
-                //        options[i] = a.OtherAnswers[optionNum];
-                //        optionNum++;
-                //    }
-                //}
+              
                 TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
                 AmericanQuestion amricanQuestion = await proxy.GetRandomQuestion();
-                Page p = new Game(amricanQuestion, Score);
-                //GameViewModel game = (GameViewModel)p.BindingContext;
-                //game.Options = options;
-                //game.Question = a;
-                //game.QuestionText = a.QText;
-                //game.Score = this.Score;
+                Page p = new Game(amricanQuestion, Score);             
                 if (NavigateToPageEvent != null)
                     NavigateToPageEvent(p);
 
@@ -194,7 +176,24 @@ namespace TriviaApp.ViewModels
 
 
         }
+
+        public ICommand Home => new Command(GoHome); 
+        void GoHome()
+        {
+            Page p; 
+            if((string)App.Current.Properties["IsLoggedIn"] == Boolean.TrueString)
+            {
+                p = new HomeWhenLogged(); 
+            }
+            else
+            {
+                p = new Home();
+            }
+            if (NavigateToPageEvent != null)
+                NavigateToPageEvent(p);
+        }
         public Action<Page> NavigateToPageEvent;
+
 
     }
 }

@@ -6,6 +6,7 @@ using TriviaApp.Models;
 using System.Threading.Tasks;
 using TriviaApp.Services;
 using Xamarin.Essentials;
+using TriviaApp.ViewModels;
 
 namespace TriviaApp
 {
@@ -22,21 +23,29 @@ namespace TriviaApp
             TaskPassword.Wait();
             string email = TaskEmail.Result;
             string password = TaskPassword.Result;
-            //if (email == null)
-            //{
+            if (email == null)
+            {
                 CurrentUser = null; 
                 MainPage = new NavigationPage(new Home());
 
-            //}
-            //else
-            //{
-            //    TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
-            //    Task<User> taskUser = proxy.LoginAsync(email, password);
-            //    taskUser.Wait();
-            //    CurrentUser = taskUser.Result;
-            //    MainPage = new NavigationPage(new HomeWhenLogged());
+            }
+            else
+            {
+                //TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
+                //Task<User> taskUser = proxy.LoginAsync(email, password);
+                //taskUser.Wait();
+                //CurrentUser = taskUser.Result;
+                LogInViewModel log = new LogInViewModel
+                {
+                    Email = email,
+                    Password = password, 
+                    
+                }; 
+                
+                MainPage = new NavigationPage(new HomeWhenLogged());
 
-            //}
+
+            }
 
 
 

@@ -63,10 +63,10 @@ namespace TriviaApp.ViewModels
             }
         }
         public Page NextPage { get; set; } 
-        public ICommand LogIn => new Command(logIn);
+        public ICommand LogIn => new Command(Log);
 
 
-        async void logIn()
+        async void Log()
         {
             TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
             User u = await proxy.LoginAsync(Email, Password);

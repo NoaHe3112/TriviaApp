@@ -79,9 +79,9 @@ namespace TriviaApp.ViewModels
                 OnPropertyChanged("Label");
             }
         }
-        public ICommand Register => new Command(register);
+        public ICommand Register => new Command(SignUp);
 
-        async void register()
+        async void SignUp()
         {
             User u = new User
             {

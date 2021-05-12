@@ -5,13 +5,13 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Question:"></Label>
-            <Entry Text="{Binding QText}" Grid.Column="0" Grid.Row="0" />
+            <Label Text="{Binding QText}" Grid.Column="0" Grid.Row="0" />
             <Label Text="Correct Answer:"/>
-            <Entry Text="{Binding QAnswer}" Grid.Column="1" Grid.Row="0"/>
+            <Label Text="{Binding QAnswer}" Grid.Column="1" Grid.Row="0"/>
             <Label Text="Incorrecct Answers:"/>
-            <Entry Text="{Binding QNotAnswers[0]}"  />
-            <Entry Text="{Binding QNotAnswers[1]}" />
-            <Entry Text="{Binding QNotAnswers[2]}" />
+            <Label Text="{Binding QNotAnswers[0]}"  />
+            <Label Text="{Binding QNotAnswers[1]}" />
+            <Label Text="{Binding QNotAnswers[2]}" />
 
            
         </StackLayout>

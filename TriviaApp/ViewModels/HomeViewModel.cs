@@ -75,15 +75,15 @@ namespace TriviaApp.ViewModels
 
         //Commands
 
-        public ICommand SignUp => new Command(signUp); 
-        void signUp()
+        public ICommand SignUp => new Command(Signup); 
+        void Signup()
         {
             Page p = new SignUp();
             if (NavigateToPageEvent != null)
                 NavigateToPageEvent(p);
         }
-        public ICommand LogIn => new Command(logIn); 
-        void logIn()
+        public ICommand LogIn => new Command(UserLogIn); 
+        void UserLogIn()
         {
             Page p = new LogIn();
             if (NavigateToPageEvent != null)
@@ -92,10 +92,10 @@ namespace TriviaApp.ViewModels
 
 
            
-        public ICommand Play => new Command(play);
+        public ICommand Play => new Command(PlayGame);
 
 
-        async void play()
+        async void PlayGame()
         {
             TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
             AmericanQuestion amricanQuestion = await proxy.GetRandomQuestion();

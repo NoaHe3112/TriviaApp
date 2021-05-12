@@ -108,9 +108,9 @@ namespace TriviaApp.ViewModels
 
         }
         public Page NextPage { get; set; }
-        public ICommand Add => new Command(add);
+        public ICommand Add => new Command(AddQ);
 
-        async void add()
+        async void AddQ()
         {
             string[] arr = new string[3];
             arr[0] = Option1;
