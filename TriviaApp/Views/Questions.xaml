@@ -15,7 +15,6 @@
                             <SwipeView.LeftItems>
                                 <SwipeItems>
                                     <SwipeItem Text="Delete"
-                                           IconImageSource="delete.png"
                                            BackgroundColor="Red"
                                            Command="{Binding Source={x:Reference collectionName}, Path=BindingContext.DeleteCommand}"
                                            CommandParameter="{Binding}" />

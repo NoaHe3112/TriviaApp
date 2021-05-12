@@ -22,7 +22,7 @@ namespace TriviaApp
             TaskPassword.Wait();
             string email = TaskEmail.Result;
             string password = TaskPassword.Result;
-            //if(email == null)
+            //if (email == null)
             //{
                 CurrentUser = null; 
                 MainPage = new NavigationPage(new Home());

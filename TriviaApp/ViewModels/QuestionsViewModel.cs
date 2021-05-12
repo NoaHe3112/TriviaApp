@@ -57,7 +57,13 @@ namespace TriviaApp.ViewModels
         //Constructor
         public QuestionsViewModel()
         {
+            App a = (App)App.Current;
+            User u = a.CurrentUser;
             QuestionList = new ObservableCollection<AmericanQuestion>();
+            for(int i =0; i <  u.Questions.Count; i++)
+            {
+                QuestionList.Add(u.Questions[i]);
+            }
             Counter = 0;
             Able = false; 
         }
@@ -87,11 +93,20 @@ namespace TriviaApp.ViewModels
         }
         //Delete question
         public ICommand DeleteCommand => new Command<AmericanQuestion>(RemoveQuestion);
-        void RemoveQuestion(AmericanQuestion a)
+        async void RemoveQuestion(AmericanQuestion a)
         {
             if (QuestionList.Contains(a))
             {
-                QuestionList.Remove(a);
+                try
+                {
+
+                    TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
+                    await proxy.DeleteQuestion(a);
+                    QuestionList.Remove(a);
+                }
+                catch (Exception e) { }
+                
+                
             }
             Counter++;
             Able = true; 

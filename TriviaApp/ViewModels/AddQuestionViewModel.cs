@@ -125,8 +125,8 @@ namespace TriviaApp.ViewModels
             User u = app.CurrentUser; 
             AmericanQuestion a = new AmericanQuestion
             {
-                CorrectAnswer = CorrectAnswer,
-                QText = Question,
+                CorrectAnswer = this.CorrectAnswer,
+                QText = this.Question,
                 OtherAnswers = arr,
                 CreatorNickName = u.NickName,
 

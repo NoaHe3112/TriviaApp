@@ -108,7 +108,6 @@ namespace TriviaApp.ViewModels
             {
                 Label = "The email or nickname is already exsits. Please try another one";
 
-
             }
             
         }

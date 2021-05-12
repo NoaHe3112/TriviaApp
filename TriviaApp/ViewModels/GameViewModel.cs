@@ -96,9 +96,6 @@ namespace TriviaApp.ViewModels
         {
             try
             {
-                //TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
-                //Task<AmericanQuestion> taskA = proxy.GetRandomQuestion();
-                //taskA.Wait();
                 AmericanQuestion a = question;
                 string[] options = new string[4];
                 string[] color = new string[4];
@@ -111,7 +108,7 @@ namespace TriviaApp.ViewModels
                     if (options[i] == null)
                     {
                         options[i] = a.OtherAnswers[optionNum];
-                        color[i] = "#FC0D0D";
+                        color[i] = "#FC0D0D"; 
                         optionNum++;
                     }
                 }
