@@ -63,13 +63,18 @@ namespace TriviaApp.ViewModels
             }
         }
         public Page NextPage { get; set; } 
-        public LogIn()
-        {
-            if (Email != null)
-                Log(); 
-        }
+        
         public ICommand LogIn => new Command(Log);
-
+        public LogInViewModel()
+        {
+            
+        }
+        public LogInViewModel(string email, string password)
+        {
+            Email = email;
+            Password = password;
+            Log(); 
+        }
 
         async void Log()
         {

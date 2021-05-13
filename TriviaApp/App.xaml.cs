@@ -31,16 +31,9 @@ namespace TriviaApp
             }
             else
             {
-                //TriviaWebAPIProxy proxy = TriviaWebAPIProxy.CreateProxy();
-                //Task<User> taskUser = proxy.LoginAsync(email, password);
-                //taskUser.Wait();
-                //CurrentUser = taskUser.Result;
-                LogInViewModel log = new LogInViewModel
-                {
-                    Email = email,
-                    Password = password, 
-                    
-                }; 
+                
+                LogInViewModel log = new LogInViewModel(email, password);
+                
                 
                 MainPage = new NavigationPage(new HomeWhenLogged());
 
