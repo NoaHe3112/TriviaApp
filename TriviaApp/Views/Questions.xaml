@@ -42,7 +42,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
             <ImageButton Source="Edit.jpg"
-            BackgroundColor="Transparent"
             AbsoluteLayout.LayoutFlags="PositionProportional" IsVisible="{Binding Able}"
             AbsoluteLayout.LayoutBounds=".95,.95,80,80" Command="{Binding Add}"/>
         </AbsoluteLayout>

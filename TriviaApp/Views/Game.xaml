@@ -22,19 +22,19 @@
                
                 <Label x:Name="Question" Text="{Binding QuestionText}" FontSize="Large"  VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" 
                        Grid.Row="0" Grid.ColumnSpan="2" Grid.Column="0"  />
-                <Button x:Name="Option1" Text="{Binding Options[0]}" Grid.Column="0"
+                <Button x:Name="Option1" Text="{Binding Options[0].text}" Grid.Column="0"
                         Grid.Row="1" BackgroundColor="{Binding Color1}" FontSize="Medium" 
                         Command="{Binding OptionClicked}"
                                            CommandParameter="{Binding Options[0]}"/>
-                <Button x:Name="Option2" Text="{Binding Options[1]}" Grid.Column="1"
+                <Button x:Name="Option2" Text="{Binding Options[1].text}" Grid.Column="1"
                         Grid.Row="1" BackgroundColor="{Binding Color2}" FontSize="Medium"
                         Command="{Binding OptionClicked}"
                                            CommandParameter="{Binding Options[1]}"/>
-                <Button x:Name="Option3" Text="{Binding Options[2]}"  Grid.Column="0"
+                <Button x:Name="Option3" Text="{Binding Options[2].text}"  Grid.Column="0"
                         Grid.Row="2" BackgroundColor="{Binding Color3}" FontSize="Medium"
                         Command="{Binding OptionClicked}"
                                            CommandParameter="{Binding Options[2]}"/>
-                <Button x:Name="Option4" Text="{Binding Options[3]}" Grid.Column="1"
+                <Button x:Name="Option4" Text="{Binding Options[3].text}" Grid.Column="1"
                         Grid.Row="2" BackgroundColor="{Binding Color4}" FontSize="Medium"
                         Command="{Binding OptionClicked}"
                                            CommandParameter="{Binding Options[3]}"/>

@@ -11,6 +11,43 @@ using System.Threading.Tasks;
 
 namespace TriviaApp.ViewModels
 {
+    class AnswerViewModel: INotifyPropertyChanged
+    {
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+        private string s;
+        public string Answer
+        {
+            get
+            {
+                return this.s;
+            }
+            set
+            {
+                this.s = value;
+                OnPropertyChanged("Answer");
+            }
+        }
+        private Color c;
+        public Color BackgroundColor
+        {
+            get
+            {
+                return this.c;
+            }
+            set
+            {
+                this.c = value;
+                OnPropertyChanged("BackgroundColor");
+            }
+        }
+
+    }
     class GameViewModel:INotifyPropertyChanged
     {
         #region INotifyPropertyChanged
@@ -33,19 +70,7 @@ namespace TriviaApp.ViewModels
                 OnPropertyChanged("Question");
             }
         }
-        private Color c;
-        public Color BackgroundColor
-        {
-            get
-            {
-                return this.c;
-            }
-            set
-            {
-                this.c = value;
-                OnPropertyChanged("BackgroundColor");
-            }
-        }
+       
         private int s; 
         public int Score
         {
@@ -74,8 +99,8 @@ namespace TriviaApp.ViewModels
 
             }
         }
-        private string[] arr; 
-        public string[] Options
+        private Answer[] arr; 
+        public Answer[] Options
         {
             get
             {
@@ -97,18 +122,23 @@ namespace TriviaApp.ViewModels
             try
             {
                 AmericanQuestion a = question;
-                string[] options = new string[4];
-                string[] color = new string[4];
+                Answer[] options = new Answer[4];
                 Random r = new Random();
                 int num = r.Next(0, 4);
-                options[num] = a.CorrectAnswer;
-                color[num] = "#0DFC34";
+                options[num] = new Answer
+                {
+                    text = a.CorrectAnswer,
+                    color = new Color(33,205,47), 
+                }; 
                 for (int i = 0, optionNum = 0; i < options.Length; i++)
                 {
                     if (options[i] == null)
                     {
-                        options[i] = a.OtherAnswers[optionNum];
-                        color[i] = "#FC0D0D"; 
+                        options[i] = new Answer
+                        {
+                            text = a.OtherAnswers[optionNum],
+                            color = new Color(252, 13, 13),
+                        };
                         optionNum++;
                     }
                 }
@@ -130,9 +160,9 @@ namespace TriviaApp.ViewModels
 
         async void OptionClick(Object o)
         {
-            if(o is string)
+            if(o is Answer)
             {
-                if(((string)o).Equals(Question.CorrectAnswer)) {
+                if(((Answer)o).text.Equals(Question.CorrectAnswer)) {
                     Score++;
                     
                 }
